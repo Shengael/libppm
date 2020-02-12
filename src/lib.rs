@@ -1,3 +1,6 @@
+#![feature(test)] //use cargo +nightly
+extern crate test;
+
 use std::ops::Not;
 use std::path::Path;
 use std::fs::File;
@@ -5,13 +8,51 @@ use std::io::{Write, BufReader, BufRead};
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use test::Bencher;
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn test_revert() {
+        let mut white: Vec<Pixel> = Vec::new();
+        let mut black: Vec<Pixel> = Vec::new();
+
+        for i in 0..4 {
+            white.push(Pixel::create(255, 255, 255));
+        }
+
+        for i in 0..4 {
+            black.push(Pixel::create(0, 0, 0));
+        }
+
+        let mut i_white: Image = Image::create(4, 4, white);
+        let mut i_black: Image = Image::create(4, 4, black);
+
+        i_black.revert();
+
+        assert_eq!(true, i_white.equal(&mut i_black));
     }
+
+    #[bench]
+    fn bench_revert(b: &mut Bencher) {
+        let mut i = Image::create(2, 4, vec![
+            Pixel::create(255, 12, 96), Pixel::create(255, 255, 0), Pixel::create(0, 0, 255), Pixel::create(0, 255, 255),
+            Pixel::create(0, 255, 255), Pixel::create(0, 0, 255), Pixel::create(255, 12, 96), Pixel::create(255, 255, 0)
+        ]);
+        b.iter(|| i.revert());
+    }
+
+    #[bench]
+    fn bench_grayscale(b: &mut Bencher) {
+        let mut i = Image::create(2, 4, vec![
+            Pixel::create(255, 12, 96), Pixel::create(255, 255, 0), Pixel::create(0, 0, 255), Pixel::create(0, 255, 255),
+            Pixel::create(0, 255, 255), Pixel::create(0, 0, 255), Pixel::create(255, 12, 96), Pixel::create(255, 255, 0)
+        ]);
+        b.iter(|| i.grayscale());
+    }
+
+
 }
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone)]
 pub struct Pixel {
     r: u8,
     g: u8,
@@ -56,6 +97,12 @@ impl Not for Pixel {
 
     fn not(self) -> Self::Output {
         return Pixel { r: 255 - self.r, g: 255 - self.g, b: 255 - self.b };
+    }
+}
+
+impl PartialEq for Pixel {
+    fn eq(&self, other: &Self) -> bool {
+        return self.r == other.r && self.g == other.g && self.b == other.b;
     }
 }
 
@@ -117,6 +164,21 @@ impl Image {
         for p in self.pixels.iter_mut() {
             p.revert();
         }
+    }
+
+    pub fn equal(&mut self, i: &mut Image) -> bool {
+        if self.width != i.width || self.height != i.height {
+            return false;
+        }
+
+        for it in self.pixels.iter().zip(i.pixels.iter_mut()) {
+            let (self_i, other_i) = it;
+            if self_i != other_i {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
