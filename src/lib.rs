@@ -17,11 +17,11 @@ use std::io::{Write, BufReader, BufRead};
 #[derive(Debug, Copy, Clone)]
 /// Structure to represent a pixel which is composed of three colors.
 pub struct Pixel {
-    ///Red
+    /// Red
     r: u8,
-    ///Green
+    /// Green
     g: u8,
-    ///Blue
+    /// Blue
     b: u8,
 }
 
