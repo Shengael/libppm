@@ -15,7 +15,7 @@ use std::fs::File;
 use std::io::{Write, BufReader, BufRead};
 
 #[derive(Debug, Copy, Clone)]
-/// Structure to represent a pixel which is composed of three colors. Each color (r, g ,b) is u8.
+/// Structure to represent a pixel which is composed of three colors.
 pub struct Pixel {
     ///Red
     r: u8,

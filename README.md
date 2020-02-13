@@ -12,6 +12,9 @@ L'objectif est de réussir à réaliser les différentes étapes [d'un projet sc
 
  Use ```cargo +nightly build``` to build project
 
+  Use ```cargo +nightly doc``` to generate project docs
+
  Use ```cargo +nightly test``` to launch unit tests
 
  Use ```cargo +nightly bench``` to launch benchmark tests
+
