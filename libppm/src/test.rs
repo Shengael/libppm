@@ -126,3 +126,65 @@ fn bench_pixels_equal(b: &mut Bencher) {
 
     b.iter(|| Pixel::eq(&p1,&p2));
 }
+
+
+#[bench]
+fn bench_compare_image(b: &mut Bencher) {
+
+    let mut c1: Vec<Pixel> = Vec::new();
+    let mut c2: Vec<Pixel> = Vec::new();
+
+    for i in 0..4 {
+        c1.push(Pixel::create(155, 145, 135));
+    }
+
+    for i in 0..4 {
+        c2.push(Pixel::create(155, 145, 135));
+    }
+
+    let mut i_c1: Image = Image::create(4, 4, c1);
+    let mut i_c2: Image = Image::create(4, 4, c2);
+
+    b.iter(|| i_c1.equal(&mut i_c2));
+}
+
+#[bench]
+fn bench_read_file(b : &mut Bencher) {
+    b.iter(|| Image::new_with_file(Path::new("src/test.ppm")) );
+}
+
+#[bench]
+fn bench_save_file(b : &mut Bencher) {
+    let img1 = Image::new_with_file(Path::new("src/test.ppm"));
+
+    match img1 {
+        Some(mut image) => {
+            b.iter(|| image.save(Path::new("src/test_save.ppm")));
+        },
+        None => println!("No Image found !")
+    }
+}
+
+#[bench]
+fn bench_image_grayscale(b : &mut Bencher) {
+    let img2 = Image::new_with_file(Path::new("src/test.ppm"));
+
+    match img2 {
+        Some(mut image) => {
+            b.iter(|| image.grayscale());
+        },
+        None => println!("No Image found !")
+    }
+}
+
+#[bench]
+fn bench_image_revert(b : &mut Bencher) {
+    let img2 = Image::new_with_file(Path::new("src/test.ppm"));
+
+    match img2 {
+        Some(mut image) => {
+            b.iter(|| image.revert());
+        },
+        None => println!("No Image found !")
+    }
+}
