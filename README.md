@@ -8,10 +8,22 @@ L'objectif est de réussir à réaliser les différentes étapes [d'un projet sc
  
  The project must be carried out in teams of three. Our team is composed of **Zineddine BOUDAOUD**, **Patrick ZHUANG** and **Luis VALDEZ**. All three of us are beginners in rust but we have searched and learned together in order to improve.
 
- ## Commands
+## Project structure
 
- Use ```cargo +nightly build``` to build project
+libppm folder contains our ppm file library. This library allows you to read or create ppm pictures. The call_lib folder contains a project which call the libppm project.
 
- Use ```cargo +nightly test``` to launch unit tests
+## libppm Commands
 
- Use ```cargo +nightly bench``` to launch benchmark tests
+Use ```cargo +nightly build``` to build project
+
+Use ```cargo +nightly doc``` to generate project docs
+
+Use ```cargo +nightly test``` to launch unit tests
+
+Use ```cargo +nightly bench``` to launch benchmark tests
+
+## call_lib Commands
+
+Use ```cargo +nightly build``` to build project
+
+Use ```cargo +nightly run``` to run project
