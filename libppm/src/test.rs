@@ -1,7 +1,4 @@
 extern crate test;
-
-use super::*;
-
 use super::*;
 use test::Bencher;
 
@@ -27,11 +24,11 @@ fn revert_pixel() {
     let mut c1: Vec<Pixel> = Vec::new();
     let mut c2: Vec<Pixel> = Vec::new();
 
-    for i in 0..4 {
+    for _i in 0..4 {
         c1.push(Pixel::create(155, 145, 135));
     }
 
-    for i in 0..4 {
+    for _i in 0..4 {
         c2.push(Pixel::create(100, 110, 120));
     }
 
@@ -81,11 +78,11 @@ fn two_images_are_equals() {
     let mut c1: Vec<Pixel> = Vec::new();
     let mut c2: Vec<Pixel> = Vec::new();
 
-    for i in 0..4 {
+    for _i in 0..4 {
         c1.push(Pixel::create(155, 145, 135));
     }
 
-    for i in 0..4 {
+    for _i in 0..4 {
         c2.push(Pixel::create(155, 145, 135));
     }
 
@@ -134,11 +131,11 @@ fn bench_compare_image(b: &mut Bencher) {
     let mut c1: Vec<Pixel> = Vec::new();
     let mut c2: Vec<Pixel> = Vec::new();
 
-    for i in 0..4 {
+    for _i in 0..4 {
         c1.push(Pixel::create(155, 145, 135));
     }
 
-    for i in 0..4 {
+    for _i in 0..4 {
         c2.push(Pixel::create(155, 145, 135));
     }
 
@@ -158,7 +155,7 @@ fn bench_save_file(b : &mut Bencher) {
     let img1 = Image::new_with_file(Path::new("src/test.ppm"));
 
     match img1 {
-        Some(mut image) => {
+        Some(image) => {
             b.iter(|| image.save(Path::new("src/test_save.ppm")));
         },
         None => println!("No Image found !")

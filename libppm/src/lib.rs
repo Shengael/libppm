@@ -187,7 +187,7 @@ impl Image {
         let mut f = File::create(filename).expect("error");
 
         //Write the String in the created File
-        f.write_all(str.as_ref());
+        let _image = f.write_all(str.as_ref());
     }
 
 
