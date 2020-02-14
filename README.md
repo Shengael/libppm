@@ -2,7 +2,7 @@
 
 ## Target
 
-L'objectif est de réussir à réaliser les différentes étapes [d'un projet scolaire](https://rust-esgi.github.io/AL1/big_project.html), afin de travailler et valider nos compétences en Rust.
+This project's goal is to realize all steps of a [school project](https://rust-esgi.github.io/AL1/big_project.html), in order to improve our Rust language abilities.
 
 ## Team
  
